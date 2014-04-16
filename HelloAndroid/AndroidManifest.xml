@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.progdan.helloandroid.SaudacaoActivity" >
+            <intent-filter>
+                <action android:name="helloandroid.ACAO_EXIBIR_SAUDACAO" />
+                <category android:name="helloandroid.CATEGORIA_SAUDACAO" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

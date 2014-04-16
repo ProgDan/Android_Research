@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,23 +18,21 @@ import android.os.Build;
 
 public class MainActivity extends Activity {
 	private EditText nomeEditText;
-	private TextView saudacaoTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         this.nomeEditText = (EditText) findViewById(R.id.nomeEditText);
-        this.saudacaoTextView = (TextView) findViewById(R.id.saudacaoTextView);
     }
 
 
     public void surpreenderUsuario(View v) {
-    	// demais códigos existentes
-    	Editable texto = this.nomeEditText.getText();
-    	String saudacao = getResources().getString(R.string.saudacao);
-    	String msg = saudacao + " " + texto.toString();
-    	this.saudacaoTextView.setText(msg);
+    	Intent intent = new Intent(SaudacaoActivity.ACAO_EXIBIR_SAUDACAO);
+    	intent.addCategory(SaudacaoActivity.CATEGORIA_SAUDACAO);
+    	String texto = nomeEditText.getText().toString();
+    	intent.putExtra(SaudacaoActivity.EXTRA_NOME_USUARIO, texto);
+    	startActivity(intent);    	
     }
 
 }
