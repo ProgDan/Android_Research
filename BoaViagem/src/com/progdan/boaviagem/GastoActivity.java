@@ -4,31 +4,37 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 
-public class ViagemActivity extends Activity {
+public class GastoActivity extends Activity {
 	private int ano, mes, dia;
-	private Button dataSaida;
-	private Button dataChegada;
-
+	private Button dataGasto;
+	private Spinner categoria;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.viagem);
+		setContentView(R.layout.gasto);
+		
+		// Busca a data atual para mostrar no botão
 		Calendar calendar = Calendar.getInstance();
 		ano = calendar.get(Calendar.YEAR);
 		mes = calendar.get(Calendar.MONTH);
 		dia = calendar.get(Calendar.DAY_OF_MONTH);
 		
-		dataSaida = (Button)findViewById(R.id.dataSaida);
-		dataSaida.setText(dia + "/" + (mes+1) + "/" + ano);
-		dataChegada = (Button)findViewById(R.id.dataChegada);
-		dataChegada.setText((dia+1) + "/" + (mes+1) + "/" + ano);
+		dataGasto = (Button)findViewById(R.id.data);
+		dataGasto.setText(dia + "/" + (mes+1) + "/" + ano);
+		
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categoria_gasto, android.R.layout.simple_spinner_item);
+		categoria = (Spinner) findViewById(R.id.categoria);
+		categoria.setAdapter(adapter);
 	}
 	
 	public void selecionarData(View view) {
@@ -37,11 +43,8 @@ public class ViagemActivity extends Activity {
 	
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		if(R.id.dataSaida == id){
+		if(R.id.data == id){
 			return new DatePickerDialog(this, listener, ano, mes, dia);
-		}
-		if(R.id.dataChegada == id){
-			return new DatePickerDialog(this, listener, ano, mes, (dia+1));
 		}
 		return null;
 	}
@@ -52,7 +55,7 @@ public class ViagemActivity extends Activity {
 			ano = year;
 			mes = montOfYear;
 			dia = dayOfMonth;
-			dataSaida.setText(dia + "/" + (mes + 1) + "/" + ano);
+			dataGasto.setText(dia + "/" + (mes + 1) + "/" + ano);
 		}
 	};
 
